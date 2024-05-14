@@ -1,10 +1,8 @@
 package controller;
 
 import javax.swing.*;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
+import java.awt.*;
+import java.io.*;
 
 public class ArquivosController implements IArquivosController {
     @Override
@@ -61,11 +59,37 @@ public class ArquivosController implements IArquivosController {
 
     @Override
     public void readFile(String path, String nome) throws IOException {
+        File arq = new File(path, nome);
+        if (arq.exists() && arq.isFile()){
 
+            FileInputStream fileStream = new FileInputStream(arq);
+            InputStreamReader reader = new InputStreamReader(fileStream);
+            BufferedReader buffer = new BufferedReader(reader);
+
+            String linha = buffer.readLine();
+            while (linha !=null) {
+                System.out.println(linha);
+                linha = buffer.readLine();
+
+            }
+            buffer.close();
+            reader.close();
+            fileStream.close();
+
+        }else {
+            throw new IOException("Arquivo inválido");
+        }
     }
 
     @Override
     public void openFile(String path, String nome) throws IOException {
+        File arq = new File(path, nome);
+        if (arq.exists() && arq.isFile()){
+            Desktop desktop = Desktop.getDesktop();
+            desktop.open(arq);
+        }else {
+            throw new IOException("Arquivo inválido");
+        }
 
     }
 }

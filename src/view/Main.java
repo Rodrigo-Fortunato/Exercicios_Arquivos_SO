@@ -14,7 +14,9 @@ public class Main {
 
         try {
 //            arqController.readDir(dirWin);
-            arqController.createFile(path,nome);
+//            arqController.createFile(path,nome);
+            arqController.readFile(path,nome);
+
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
